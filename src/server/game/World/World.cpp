@@ -1454,7 +1454,7 @@ void World::SetInitialWorldSettings()
     sObjectMgr->LoadCreatureModelInfo();
 
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Loading Creature templates...");
-    //sObjectMgr->LoadCreatureTemplates();
+    sObjectMgr->LoadCreatureTemplates();
 
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Loading Equipment templates...");           // must be after LoadCreatureTemplates
     sObjectMgr->LoadEquipmentTemplates();
@@ -1493,7 +1493,7 @@ void World::SetInitialWorldSettings()
     sObjectMgr->LoadCreatureAddons();                            // must be after LoadCreatureTemplates() and LoadCreatures()
 
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Loading Gameobject Data...");
-    //sObjectMgr->LoadGameobjects();
+    sObjectMgr->LoadGameobjects();
 
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Loading Creature Linked Respawn...");
     sObjectMgr->LoadLinkedRespawn();                             // must be after LoadCreatures(), LoadGameObjects()

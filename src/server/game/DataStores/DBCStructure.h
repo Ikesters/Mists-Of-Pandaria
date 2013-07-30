@@ -54,6 +54,7 @@ struct AchievementEntry
     //char* reward;                                         // 11
     uint32 count;                                           // 12 - need this count of completed criterias (own or referenced achievement criterias)
     uint32 refAchievement;                                  // 13 - referenced achievement (counting of all completed criterias)
+    // uint32 unk                                           // 14 5.3.0
 };
 
 struct AchievementCategoryEntry
@@ -596,6 +597,7 @@ struct AreaPOIEntry
     uint32 worldState;      //19
     //uint32 val2;          //20
     //uint32 unk;           //21
+    //uint32 unk            //22 5.3.0
 };
 
 struct AreaTriggerEntry
@@ -811,6 +813,8 @@ struct CreatureDisplayInfoEntry
                                                             // 14       m_creatureGeosetData
                                                             // 15       m_objectEffectPackageID
                                                             // 16
+                                                            // 17 5.3.0
+                                                            // 18 5.3.0
 };
 
 struct CreatureFamilyEntry
@@ -888,7 +892,8 @@ struct CurrencyTypesEntry
     uint32 TotalCap;                                        // 7
     uint32 WeekCap;                                         // 8
     uint32 Flags;                                           // 9
-    //char* description;                                    // 10
+    //uint8 unk                                             // 10 5.3.0
+    //char* description;                                    // 11
 };
 
 struct DestructibleModelDataEntry
@@ -977,6 +982,7 @@ struct FactionEntry
     char*       name;                                       // 23       m_name_lang
     //char*     description;                                // 24       m_description_lang
     uint32      GroupExpansion;                             // 25       m_factionGroupExpansion
+    // uint8 unk                                            // 26 5.3.0
 
     // helpers
     bool CanHaveReputation() const
@@ -1052,7 +1058,9 @@ struct GameObjectDisplayInfoEntry
     float   maxX;
     float   maxY;
     float   maxZ;
-    //uint32  transport;                                    //18
+    //uint32  transport;                                    //18 5.3.0
+    //uint32  unk                                           //19 5.3.0
+    //uint32  unk2                                          //20 5.3.0
 };
 
 struct GemPropertiesEntry
@@ -1215,49 +1223,49 @@ struct HolidaysEntry
 // ImportPriceArmor.dbc
 struct ImportPriceArmorEntry
 {
-    uint32 InventoryType;                                   // 1        Id/InventoryType
-    float ClothFactor;                                      // 2        Price factor cloth
-    float LeatherFactor;                                    // 3        Price factor leather
-    float MailFactor;                                       // 4        Price factor mail
-    float PlateFactor;                                      // 5        Price factor plate
+    uint32 InventoryType;                                   // 0        Id/InventoryType
+    float ClothFactor;                                      // 1        Price factor cloth
+    float LeatherFactor;                                    // 2        Price factor leather
+    float MailFactor;                                       // 3        Price factor mail
+    float PlateFactor;                                      // 4        Price factor plate
 };
 
 // ImportPriceQuality.dbc
 struct ImportPriceQualityEntry
 {
-    uint32 QualityId;                                       // 1        Quality Id (+1?)
-    float Factor;                                           // 2        Price factor
+    uint32 QualityId;                                       // 0        Quality Id (+1?)
+    float Factor;                                           // 1        Price factor
 };
 
 // ImportPriceShield.dbc
 struct ImportPriceShieldEntry
 {
-    uint32 Id;                                              // 1        Unk id (only 1 and 2)
-    float Factor;                                           // 2        Price factor
+    uint32 Id;                                              // 0        Unk id (only 1 and 2)
+    float Factor;                                           // 1        Price factor
 };
 
 // ImportPriceWeapon.dbc
 struct ImportPriceWeaponEntry
 {
-    uint32 Id;                                              // 1        Unk id (mainhand - 0, offhand - 1, weapon - 2, 2hweapon - 3, ranged/rangedright/relic - 4)
-    float Factor;                                           // 2        Price factor
+    uint32 Id;                                              // 0        Unk id (mainhand - 0, offhand - 1, weapon - 2, 2hweapon - 3, ranged/rangedright/relic - 4)
+    float Factor;                                           // 1        Price factor
 };
 
 // ItemPriceBase.dbc
 struct ItemPriceBaseEntry
 {
-    uint32 ItemLevel;                                       // 2        Item level (1 - 1000)
-    float ArmorFactor;                                      // 3        Price factor for armor
-    float WeaponFactor;                                     // 4        Price factor for weapons
+    uint32 ItemLevel;                                       // 1        Item level (1 - 1000)
+    float ArmorFactor;                                      // 2        Price factor for armor
+    float WeaponFactor;                                     // 3        Price factor for weapons
 };
 
 struct ItemReforgeEntry
 {
-    uint32 Id;
-    uint32 SourceStat;
-    float SourceMultiplier;
-    uint32 FinalStat;
-    float FinalMultiplier;
+    uint32 Id;                                       // 0        5.3.0
+    uint32 SourceStat;                               // 1        5.3.0
+    float SourceMultiplier;                          // 2        5.3.0
+    uint32 FinalStat;                                // 3        5.3.0
+    float FinalMultiplier;                           // 4        5.3.0
 };
 
 // common struct for:
@@ -1300,11 +1308,10 @@ struct ItemArmorTotalEntry
 // ItemClass.dbc
 struct ItemClassEntry
 {
-    uint32    Class;                                          // 1 item class id
-  //uint32    Unk;                                            // 2 unk
-  //uint32    IsWeapon;                                       // 3 1 for weapon, 0 for everything else
-    float     PriceFactor;                                    // 4 used to calculate certain prices
-  //char*     Name;                                           // class name
+    uint32    Class;                                          // 0 item class id - 5.3.0
+  //uint32    IsWeapon;                                       // 1 1 for weapon, 0 for everything else - 5.3.0
+    float     PriceFactor;                                    // 2 used to calculate certain prices - 5.3.0
+  //char*     Name;                                           // 3 class name - 5.3.0
 };
 
 struct ItemBagFamilyEntry
