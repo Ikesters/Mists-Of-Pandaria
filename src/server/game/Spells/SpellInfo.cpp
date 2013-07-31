@@ -365,9 +365,9 @@ SpellEffectInfo::SpellEffectInfo(SpellEntry const* /*spellEntry*/, SpellInfo con
     TriggerSpell = _effect ? _effect->EffectTriggerSpell : 0;
     SpellClassMask = _effect ? _effect->EffectSpellClassMask : flag96(0);
     ImplicitTargetConditions = NULL;
-    ScalingMultiplier = scaling ? scaling->Multiplier[_effIndex] : 0.0f;
-    DeltaScalingMultiplier = scaling ? scaling->RandomMultiplier[_effIndex] : 0.0f;
-    ComboScalingMultiplier = scaling ? scaling->OtherMultiplier[_effIndex] : 0.0f;
+    ScalingMultiplier = scaling ? NULL : 0.0f; // @TODO: Correct
+    DeltaScalingMultiplier = scaling ? NULL : 0.0f; // @TODO: Correct
+    ComboScalingMultiplier = scaling ? NULL : 0.0f; // @TODO: Correct
 }
 
 bool SpellEffectInfo::IsEffect() const

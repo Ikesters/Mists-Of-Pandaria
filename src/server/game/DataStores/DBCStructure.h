@@ -1409,6 +1409,9 @@ struct LFGDungeonEntry
     uint32  grouptype;                                      // 15
     //char*   desc;                                         // 16 Description
     uint32  randomCategoryId;                               // 17 RandomDungeonID assigned for this dungeon
+    // UNKNOWN                                              // 21 5.3.0
+    // UNKNOWN                                              // 22 5.3.0
+    // UNKNOWN                                              // 23 5.3.0
     // Helpers
     uint32 Entry() const { return ID + (type << 24); }
 };
@@ -1549,6 +1552,7 @@ struct MovieEntry
     //char*       filename;                                 // 1
     //uint32      unk1;                                     // 2        m_volume
     //uint32      unk2;                                     // 3 4.0.0
+    //uint32      unk3;                                     // 4 5.3.0
 };
 
 struct NameGenEntry
@@ -1673,6 +1677,7 @@ struct SkillLineEntry
     uint32    spellIcon;                                    // 5        m_spellIconID
     //char*     alternateVerb;                              // 6        m_alternateVerb_lang
     uint32    canLink;                                      // 7        m_canLink (prof. with recipes)
+    // UNKNOWN                                              // 8 5.3.0
 };
 
 struct SkillLineAbilityEntry
@@ -1689,7 +1694,7 @@ struct SkillLineAbilityEntry
     uint32    learnOnGetSkill;                              // 9        m_acquireMethod
     uint32    max_value;                                    // 10       m_trivialSkillLineRankHigh
     uint32    min_value;                                    // 11       m_trivialSkillLineRankLow
-    uint32    character_points[2];                          // 12-13    m_characterPoints
+    uint32    character_points;                             // 12       m_characterPoints - 5.3.0
 };
 
 struct SoundEntriesEntry
@@ -1710,6 +1715,8 @@ struct SoundEntriesEntry
     //unk                                                   // 31       4.0.0
     //unk                                                   // 32       4.0.0
     //unk                                                   // 33       4.0.0
+    //unk                                                   // 34       5.3.0
+    //unk                                                   // 35       5.3.0
 };
 
 // SpellEffect.dbc
@@ -1933,14 +1940,19 @@ struct SpellLevelsEntry
 // SpellPower.dbc
 struct SpellPowerEntry
 {
-    //uint32    Id;                                           // 0        m_ID
-    uint32    manaCost;                                     // 1       m_manaCost
-    uint32    manaCostPerlevel;                             // 2       m_manaCostPerLevel
-    uint32    ManaCostPercentage;                           // 3       m_manaCostPct
-    uint32    manaPerSecond;                                // 4       m_manaPerSecond
-    uint32    manaPerSecondPerLevel;                        // 5       m_manaPerSecondPerLevel
-    //uint32  PowerDisplayId;                               // 6       m_powerDisplayID - id from PowerDisplay.dbc, new in 3.1
-    float     ManaCostPercentageFloat;                      // 7       4.3.0
+    //uint32    Id;                                         // 0        m_ID
+    uint32    SpellId;                                      // 1       5.3.0
+    //uint32  unk                                           // 2       5.3.0
+    uint32    PowerType;                                    // 3       5.3.0
+    uint32    manaCost;                                     // 4       m_manaCost
+    uint32    manaCostPerlevel;                             // 5       m_manaCostPerLevel
+    uint32    ManaCostPercentage;                           // 6       m_manaCostPct
+    uint32    manaPerSecond;                                // 7       m_manaPerSecond
+    //uint32  PowerDisplayId;                               // 8       m_powerDisplayID - id from PowerDisplay.dbc, new in 3.1
+    float     ManaCostPercentageFloat;                      // 9       4.3.0
+    // uint32 unk                                           // 10      5.3.0
+    // uint32 unk                                           // 11      5.3.0
+    // uint32 unk                                           // 12      5.3.0
 };
 
 struct SpellRuneCostEntry
@@ -1989,18 +2001,24 @@ struct SpellShapeshiftEntry
 struct SpellTargetRestrictionsEntry
 {
     uint32    Id;                                           // 0        m_ID
-    uint32    MaxAffectedTargets;                           // 1        m_maxTargets
-    uint32    MaxTargetLevel;                               // 2        m_maxTargetLevel
-    uint32    TargetCreatureType;                           // 3       m_targetCreatureType
-    uint32    Targets;                                      // 4       m_targets
+    uint32    SpellId;                                      // 1        m_SpellId  5.3.0
+    //unk                                                   // 2        5.3.0
+    float     MaxTargetRadius;                              // 3        5.3.0
+    //unk                                                   // 4        5.3.0
+    uint32    MaxAffectedTargets;                           // 5        m_maxTargets  5.3.0
+    uint32    MaxTargetLevel;                               // 6        m_maxTargetLevel  5.3.0
+    uint32    TargetCreatureType;                           // 7        m_targetCreatureType  5.3.0
+    uint32    Targets;                                      // 8        m_targets  5.3.0
 };
 
 // SpellReagents.dbc
 struct SpellReagentsEntry
 {
     //uint32    Id;                                           // 0        m_ID
-    int32     Reagent[MAX_SPELL_REAGENTS];                  // 54-61    m_reagent
-    uint32    ReagentCount[MAX_SPELL_REAGENTS];             // 62-69    m_reagentCount
+    //uint32    SpellId;                                      // 1        m_SpellId        5.3.0
+    //unk                                                     // 2
+    int32     Reagent[MAX_SPELL_REAGENTS];                    // 54-61    m_reagent        5.3.0
+    uint32    ReagentCount[MAX_SPELL_REAGENTS];               // 62-69    m_reagentCount   5.3.0
 };
 
 // SpellScaling.dbc
@@ -2011,11 +2029,10 @@ struct SpellScalingEntry
     int32     CastTimeMax;                                  // 2
     int32     CastTimeMaxLevel;                             // 3
     int32     ScalingClass;                                 // 4        (index * 100) + charLevel - 1 => gtSpellScaling.dbc
-    float     Multiplier[3];                                // 5-7
-    float     RandomMultiplier[3];                          // 8-10
-    float     OtherMultiplier[3];                           // 11-13
-    float     CoefBase;                                     // 14        some coefficient, mostly 1.0f
-    int32     CoefLevelBase;                                // 15        some level
+    float     CoefBase;                                     // 5        some coefficient, mostly 1.0f
+    int32     CoefLevelBase;                                // 6        some level
+    //uint32 unk;                                           // 7        5.3.0
+    //uint32 unk2;                                          // 8        5.3.0
 };
 
 struct SpellDurationEntry
